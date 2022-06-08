@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+
+    public GameObject laserPrefab;
+
     [SerializeField]
-    private float speed = 0.05f;
+    private float speed = 7.0f;
 
     void Start()
     {
@@ -16,6 +19,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
+        Attack();
     }
 
     private void Movement()
@@ -40,6 +44,22 @@ public class Player : MonoBehaviour
         else if (transform.position.y < -3.79f)
         {
             transform.position = new Vector3(transform.position.x, -3.79f, transform.position.z);
+        }
+    }
+
+    private void Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Instantiate(
+                laserPrefab,
+                new Vector3(
+                    transform.position.x,
+                    transform.position.y + 0.9f,
+                    transform.position.z
+                ),
+                Quaternion.identity
+            );
         }
     }
 }
