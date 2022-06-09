@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     private float _canFire = 0.0f;
     [SerializeField]
     private float _speed = 7.0f;
+    [SerializeField]
+    private bool _hasPowerUp = true;
 
     void Start()
     {
@@ -49,22 +51,44 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void spawnLateralLaser(float lateralValue) {
+        Instantiate(
+            _laserPrefab,
+            new Vector3(
+                transform.position.x + lateralValue,
+                transform.position.y,
+                transform.position.z
+            ),
+            Quaternion.identity
+        );
+    }
+
+    private void spawnFrontalLaser(float frontalValue) {
+        Instantiate(
+            _laserPrefab,
+            new Vector3(
+                transform.position.x,
+                transform.position.y + frontalValue,
+                transform.position.z
+            ),
+            Quaternion.identity
+        );
+    }
+
     private void Attack()
     {
         if (hasFired() && Time.time > _canFire)
         {
 
-            Instantiate(
-                _laserPrefab,
-                new Vector3(
-                    transform.position.x,
-                    transform.position.y + 0.9f,
-                    transform.position.z
-                ),
-                Quaternion.identity
-            );
+            if(_hasPowerUp)
+            {
+                spawnLateralLaser(0.6f);
+                spawnFrontalLaser(0.9f);
+                spawnLateralLaser(-0.6f);
+            } else {
+                spawnFrontalLaser(0.9f);
+            }
             _canFire = Time.time + _fireRate;
-            
         }
     }
 
