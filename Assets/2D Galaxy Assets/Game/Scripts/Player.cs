@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    public GameObject laserPrefab;
-
     [SerializeField]
-    private float speed = 7.0f;
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private float _fireRate = 0.25f;
+    private float _canFire = 0.0f;
+    [SerializeField]
+    private float _speed = 7.0f;
 
     void Start()
     {
@@ -26,8 +28,8 @@ public class Player : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.right * speed * horizontalInput * Time.deltaTime);
-        transform.Translate(Vector3.up * speed * verticalInput * Time.deltaTime);
+        transform.Translate(Vector3.right * _speed * horizontalInput * Time.deltaTime);
+        transform.Translate(Vector3.up * _speed * verticalInput * Time.deltaTime);
 
         if (transform.position.x > 7.93f)
         {
@@ -49,10 +51,11 @@ public class Player : MonoBehaviour
 
     private void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
+        if (hasFired() && Time.time > _canFire)
         {
+
             Instantiate(
-                laserPrefab,
+                _laserPrefab,
                 new Vector3(
                     transform.position.x,
                     transform.position.y + 0.9f,
@@ -60,6 +63,13 @@ public class Player : MonoBehaviour
                 ),
                 Quaternion.identity
             );
+            _canFire = Time.time + _fireRate;
+            
         }
+    }
+
+    private bool hasFired()
+    {
+        return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0);
     }
 }
