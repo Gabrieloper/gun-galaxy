@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _speed = 7.0f;
     [SerializeField]
-    private bool _hasPowerUp = true;
+    private bool _hasTripleShot = false;
 
     void Start()
     {
@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
         if (hasFired() && Time.time > _canFire)
         {
 
-            if(_hasPowerUp)
+            if(_hasTripleShot)
             {
                 Instantiate(
                     _tripleShotPrefab,
@@ -87,5 +87,17 @@ public class Player : MonoBehaviour
     private bool hasFired()
     {
         return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0);
+    }
+
+    public void StartTripleShot()
+    {
+        _hasTripleShot = true;
+        StartCoroutine(PowerDownRoutine(5.0f));
+    }
+
+    private IEnumerator PowerDownRoutine(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        _hasTripleShot = false;
     }
 }
