@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     private float _canFire = 0.0f;
     [SerializeField]
     private float _speed = 7.0f;
+    private float _baseSpeed = 7.0f;
+    [SerializeField]
+    private float _speedBoostVelocity = 15.0f;
     [SerializeField]
     private bool _hasTripleShot = false;
 
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour
     {
         Movement();
         Attack();
+
     }
 
     private void Movement()
@@ -92,12 +96,24 @@ public class Player : MonoBehaviour
     public void StartTripleShot()
     {
         _hasTripleShot = true;
-        StartCoroutine(PowerDownRoutine(5.0f));
+        StartCoroutine(TripleShotPowerDownRoutine(5.0f));
     }
 
-    private IEnumerator PowerDownRoutine(float seconds)
+    public void StartSpeedBoost()
+    {
+        this._speed = _speedBoostVelocity;
+        StartCoroutine(SpeedBoostPowerDownRoutine(7.0f));
+    }
+
+    private IEnumerator TripleShotPowerDownRoutine(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         _hasTripleShot = false;
+    }
+
+    private IEnumerator SpeedBoostPowerDownRoutine(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        this._speed = _baseSpeed;
     }
 }
