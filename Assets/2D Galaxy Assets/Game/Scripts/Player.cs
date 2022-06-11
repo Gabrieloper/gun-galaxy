@@ -7,6 +7,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
+    private GameObject _tripleShotPrefab;
+    [SerializeField]
     private float _fireRate = 0.25f;
     private float _canFire = 0.0f;
     [SerializeField]
@@ -51,18 +53,6 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void spawnLateralLaser(float lateralValue) {
-        Instantiate(
-            _laserPrefab,
-            new Vector3(
-                transform.position.x + lateralValue,
-                transform.position.y,
-                transform.position.z
-            ),
-            Quaternion.identity
-        );
-    }
-
     private void spawnFrontalLaser(float frontalValue) {
         Instantiate(
             _laserPrefab,
@@ -82,9 +72,11 @@ public class Player : MonoBehaviour
 
             if(_hasPowerUp)
             {
-                spawnLateralLaser(0.6f);
-                spawnFrontalLaser(0.9f);
-                spawnLateralLaser(-0.6f);
+                Instantiate(
+                    _tripleShotPrefab,
+                    transform.position,
+                    Quaternion.identity
+                );
             } else {
                 spawnFrontalLaser(0.9f);
             }
