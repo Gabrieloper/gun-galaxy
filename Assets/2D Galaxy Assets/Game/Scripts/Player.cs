@@ -13,8 +13,11 @@ public class Player : MonoBehaviour
     private float _canFire = 0.0f;
     [SerializeField]
     private float _speed = 7.0f;
+    private float _baseSpeed = 7.0f;
     [SerializeField]
-    private bool _hasPowerUp = true;
+    private float _speedBoostVelocity = 15.0f;
+    [SerializeField]
+    private bool _hasTripleShot = false;
 
     void Start()
     {
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour
     {
         Movement();
         Attack();
+
     }
 
     private void Movement()
@@ -70,7 +74,7 @@ public class Player : MonoBehaviour
         if (hasFired() && Time.time > _canFire)
         {
 
-            if(_hasPowerUp)
+            if(_hasTripleShot)
             {
                 Instantiate(
                     _tripleShotPrefab,
@@ -87,5 +91,29 @@ public class Player : MonoBehaviour
     private bool hasFired()
     {
         return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0);
+    }
+
+    public void StartTripleShot()
+    {
+        _hasTripleShot = true;
+        StartCoroutine(TripleShotPowerDownRoutine(5.0f));
+    }
+
+    public void StartSpeedBoost()
+    {
+        this._speed = _speedBoostVelocity;
+        StartCoroutine(SpeedBoostPowerDownRoutine(7.0f));
+    }
+
+    private IEnumerator TripleShotPowerDownRoutine(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        _hasTripleShot = false;
+    }
+
+    private IEnumerator SpeedBoostPowerDownRoutine(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        this._speed = _baseSpeed;
     }
 }
