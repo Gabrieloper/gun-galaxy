@@ -22,6 +22,8 @@ public class PowerUp : MonoBehaviour
                 player.StartTripleShot();
             } else if (this.tag == "Speed") {
                 player.StartSpeedBoost();
+            } else if(this.tag == "Ricochet") {
+                player.StartRicochetShot();
             }
             Destroy(this.gameObject);
         }

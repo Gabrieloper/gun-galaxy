@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Triple
+  - Speed
+  - Ricochet
+  - Laser
   layers:
   - Default
   - TransparentFX

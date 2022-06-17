@@ -99,6 +99,12 @@ public class Player : MonoBehaviour
         StartCoroutine(TripleShotPowerDownRoutine(5.0f));
     }
 
+    public void StartRicochetShot()
+    {
+        Laser.hasRicochetPowerUp = true;
+        StartCoroutine(RicochetPowerDownRoutine(100.0f));
+    }
+
     public void StartSpeedBoost()
     {
         this._speed = _speedBoostVelocity;
@@ -115,5 +121,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         this._speed = _baseSpeed;
+    }
+
+        private IEnumerator RicochetPowerDownRoutine(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Laser.hasRicochetPowerUp = false;
     }
 }
