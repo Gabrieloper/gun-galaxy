@@ -23,4 +23,13 @@ public class Laser : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+
+    private void OnTriggerEnter2D(Collider2D collider) {
+        if(collider.tag == "Enemy") {
+            Enemy enemy = collider.GetComponent<Enemy>();
+            enemy.TakeDamage();
+            Destroy(this.gameObject);
+        }
+    }
 }

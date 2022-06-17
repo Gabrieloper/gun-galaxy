@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     private float _speedBoostVelocity = 15.0f;
     [SerializeField]
     private bool _hasTripleShot = false;
+    private int _health = 3;
 
     void Start()
     {
@@ -115,5 +116,21 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         this._speed = _baseSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider) {
+        if(collider.tag == "Enemy") {
+            Enemy enemy = collider.GetComponent<Enemy>();
+            enemy.TakeDamage();
+            TakeDamage(1);
+        }
+    }
+
+    // create general function that is decoupled of any component and provides the same functionality for it to be reutilized
+    private void TakeDamage(int damage) {
+        this._health -= damage;
+        if(this._health == 0) {
+            Destroy(this.gameObject);
+        }
     }
 }

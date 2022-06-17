@@ -18,10 +18,12 @@ public class PowerUp : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collider) {
         if(collider.tag == "Player") {
             Player player = collider.GetComponent<Player>();
-            if(this.tag == "Triple") {
-                player.StartTripleShot();
-            } else if (this.tag == "Speed") {
-                player.StartSpeedBoost();
+            if(player != null) {
+                if(this.tag == "Triple") {
+                    player.StartTripleShot();
+                } else if (this.tag == "Speed") {
+                    player.StartSpeedBoost();
+                }
             }
             Destroy(this.gameObject);
         }
