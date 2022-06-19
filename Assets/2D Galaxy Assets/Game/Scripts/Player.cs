@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tripleShotPrefab;
     [SerializeField]
+    private GameObject _playerExplosion;
     private float _fireRate = 0.25f;
     private float _canFire = 0.0f;
     [SerializeField]
@@ -18,14 +19,13 @@ public class Player : MonoBehaviour
     private float _speedBoostVelocity = 15.0f;
     [SerializeField]
     private bool _hasTripleShot = false;
-    private int _health = 3;
+    private int _health = 1;
 
     void Start()
     {
        transform.position = new Vector3(0, 0, 0);
     }
 
-    // Update is called once per frame
     void Update()
     {
         Movement();
@@ -122,15 +122,22 @@ public class Player : MonoBehaviour
         if(collider.tag == "Enemy") {
             Enemy enemy = collider.GetComponent<Enemy>();
             enemy.TakeDamage();
+            enemy.DeathAnimation();
             TakeDamage(1);
         }
+    }
+
+    private void DeathAnimation() {
+        Instantiate(_playerExplosion, transform.position, Quaternion.identity);
     }
 
     // create general function that is decoupled of any component and provides the same functionality for it to be reutilized
     private void TakeDamage(int damage) {
         this._health -= damage;
         if(this._health == 0) {
+            DeathAnimation();
             Destroy(this.gameObject);
         }
     }
+
 }
