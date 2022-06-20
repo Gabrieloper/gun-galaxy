@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
     private GameObject _tripleShotPrefab;
     [SerializeField]
     private GameObject _playerExplosion;
+    [SerializeField]
+    private GameObject _shieldPowerUp;
+
     private float _fireRate = 0.25f;
     private float _canFire = 0.0f;
     [SerializeField]
@@ -17,10 +20,12 @@ public class Player : MonoBehaviour
     private float _baseSpeed = 7.0f;
     [SerializeField]
     private float _speedBoostVelocity = 15.0f;
+
     [SerializeField]
     private bool _hasTripleShot = false;
     private bool _hasShieldPowerUp = false;
     [SerializeField]
+
     private int _health = 1;
 
     void Start()
@@ -113,6 +118,7 @@ public class Player : MonoBehaviour
     public void StartShieldPowerUp()
     {
         this._hasShieldPowerUp = true;
+        _shieldPowerUp.SetActive(true);
     }
 
     private IEnumerator TripleShotPowerDownRoutine(float seconds)
@@ -145,6 +151,8 @@ public class Player : MonoBehaviour
             this._health -= damage;
         } else {
             this._hasShieldPowerUp = false;
+            _shieldPowerUp.SetActive(false);
+            return;
         }
         if(this._health == 0) {
             DeathAnimation();
