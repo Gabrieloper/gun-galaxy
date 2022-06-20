@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     private float _speedBoostVelocity = 15.0f;
     [SerializeField]
     private bool _hasTripleShot = false;
+    private bool _hasShieldPowerUp = false;
+    [SerializeField]
     private int _health = 1;
 
     void Start()
@@ -94,6 +96,8 @@ public class Player : MonoBehaviour
         return Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0);
     }
 
+    // TODO: Move powerups logic to its own class
+
     public void StartTripleShot()
     {
         _hasTripleShot = true;
@@ -104,6 +108,11 @@ public class Player : MonoBehaviour
     {
         this._speed = _speedBoostVelocity;
         StartCoroutine(SpeedBoostPowerDownRoutine(7.0f));
+    }
+
+    public void StartShieldPowerUp()
+    {
+        this._hasShieldPowerUp = true;
     }
 
     private IEnumerator TripleShotPowerDownRoutine(float seconds)
@@ -122,7 +131,6 @@ public class Player : MonoBehaviour
         if(collider.tag == "Enemy") {
             Enemy enemy = collider.GetComponent<Enemy>();
             enemy.TakeDamage();
-            enemy.DeathAnimation();
             TakeDamage(1);
         }
     }
@@ -133,7 +141,11 @@ public class Player : MonoBehaviour
 
     // create general function that is decoupled of any component and provides the same functionality for it to be reutilized
     private void TakeDamage(int damage) {
-        this._health -= damage;
+        if(!_hasShieldPowerUp) {
+            this._health -= damage;
+        } else {
+            this._hasShieldPowerUp = false;
+        }
         if(this._health == 0) {
             DeathAnimation();
             Destroy(this.gameObject);

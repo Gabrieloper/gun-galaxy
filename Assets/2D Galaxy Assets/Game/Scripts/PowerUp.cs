@@ -23,6 +23,8 @@ public class PowerUp : MonoBehaviour
                     player.StartTripleShot();
                 } else if (this.tag == "Speed") {
                     player.StartSpeedBoost();
+                } else if (this.tag == "Shield") {
+                    player.StartShieldPowerUp();
                 }
             }
             Destroy(this.gameObject);
