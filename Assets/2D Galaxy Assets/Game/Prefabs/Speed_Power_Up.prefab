@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 5671111437509375204}
   - component: {fileID: 2811377341836871488}
   - component: {fileID: 6704028693679255618}
+  - component: {fileID: -347841545674079499}
   - component: {fileID: 8583601929032262753}
   m_Layer: 0
   m_Name: Speed_Power_Up
-  m_TagString: Untagged
+  m_TagString: Speed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,11 +96,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7835744573459805649}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee20884c462e4247b9dbfda2f608a87, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a0ba0d37fbdffb4cbeebcd000fe782d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerUpPrefab: {fileID: 7835744573459805649}
   _powerUpSpeed: 3
+--- !u!114 &-347841545674079499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7835744573459805649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e5a14ea41b77e4faf476ed91728dc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speedBoostVelocity: 15
 --- !u!61 &8583601929032262753
 BoxCollider2D:
   m_ObjectHideFlags: 0
