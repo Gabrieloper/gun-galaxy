@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    Player player;
+    Player Player;
 
     private void Awake() 
     {
-        player = GetComponent<Player>();
+        Player = GetComponent<Player>();
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if(collider.tag == "Enemy")
         {
-            Enemy enemy = collider.GetComponent<Enemy>();
-            enemy.TakeDamage();
-            this.player.TakeDamage(1);
+            Enemy Enemy = collider.GetComponent<Enemy>();
+            Enemy.TakeDamage();
+            Player.TakeDamage(1);
         }
     }
 }

@@ -16,18 +16,18 @@ public class PowerUp : MonoBehaviour
     {
         if(collider.tag == "Player") 
         {
-            Player player = collider.GetComponent<Player>();
-            if(player != null) 
+            Player Player = collider.GetComponent<Player>();
+            if(Player != null) 
             {
                 if(this.tag == "Triple") 
                 {
-                    player.powerUpState.StartTripleShot();
+                    Player.PowerUpState.StartTripleShot();
                 } else if (this.tag == "Speed") 
                 {
-                    player.powerUpState.StartSpeedBoost();
+                    Player.PowerUpState.StartSpeedBoost();
                 } else if (this.tag == "Shield") 
                 {
-                    player.powerUpState.StartShieldPowerUp();
+                    Player.PowerUpState.StartShieldPowerUp();
                 }
             }
             Destroy(this.gameObject);

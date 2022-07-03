@@ -8,15 +8,18 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject _enemyExplosion;
 
-    public void TakeDamage() {
-        this._health -= 1;
+    public void TakeDamage()
+    {
+        _health -= 1;
         if(_health == 0) {
             DeathAnimation();
             Destroy(this.gameObject);
         }
     }
 
-    public void DeathAnimation() {
+    public void DeathAnimation()
+    {
+        // TODO: Destroy enemy explosion prefab when animation ends
         Instantiate(_enemyExplosion, transform.position, Quaternion.identity);
     }
 }

@@ -5,9 +5,8 @@ using UnityEngine;
 public class PowerUpState : MonoBehaviour
 {
     public Dictionary<string, bool> powerUps = new Dictionary<string, bool>();
-    Player player;
-    
     [SerializeField] float _speedBoostVelocity = 15.0f;
+    Player Player;
 
     private void Awake()
     {
@@ -15,7 +14,7 @@ public class PowerUpState : MonoBehaviour
         powerUps.Add("speed", false);
         powerUps.Add("shield", false);
 
-        player = GetComponent<Player>();
+        Player = GetComponent<Player>();
     }
 
     public bool getPowerUpState(string powerUp) {
@@ -35,14 +34,14 @@ public class PowerUpState : MonoBehaviour
     public void StartSpeedBoost()
     {
         setPowerUpState("speed", true);
-        player.playerMovement.Speed = _speedBoostVelocity;
+        Player.PlayerMovement.Speed = _speedBoostVelocity;
         StartCoroutine(SpeedBoostPowerDownRoutine(7.0f));
     }
 
     public void StartShieldPowerUp()
     {
         setPowerUpState("shield", true);
-        player.shield.SetActive(true);
+        Player.Shield.SetActive(true);
     }
 
     private IEnumerator TripleShotPowerDownRoutine(float seconds)
@@ -55,6 +54,6 @@ public class PowerUpState : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         powerUps["speed"] = false;
-        player.playerMovement.Speed = player.playerMovement.BaseSpeed;
+        Player.PlayerMovement.Speed = Player.PlayerMovement.BaseSpeed;
     }
 }

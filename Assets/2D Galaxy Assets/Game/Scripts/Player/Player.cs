@@ -7,13 +7,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _playerExplosion;
     [SerializeField]
-    public GameObject shield;
+    public GameObject Shield;
     [SerializeField]
-    internal PlayerAttack playerAttack;
+    internal PlayerAttack PlayerAttack;
     [SerializeField]
-    internal PowerUpState powerUpState;
+    internal PowerUpState PowerUpState;
     [SerializeField]
-    internal PlayerMovement playerMovement;
+    internal PlayerMovement PlayerMovement;
     [SerializeField]
     private int _health = 1;
 
@@ -24,8 +24,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        playerMovement.Move();
-        playerAttack.Attack();
+        PlayerMovement.Move();
+        PlayerAttack.Attack();
     }
 
     private void DeathAnimation()
@@ -36,19 +36,20 @@ public class Player : MonoBehaviour
     // create general function that is decoupled of any component and provides the same functionality for it to be reutilized
     public void TakeDamage(int damage)
     {
-        if(!powerUpState.getPowerUpState("shield"))
+        if(!PowerUpState.getPowerUpState("shield"))
         {
-            this._health -= damage;
+            _health -= damage;
         } else
         {
-            powerUpState.setPowerUpState("shield", false);
-            shield.SetActive(false);
+            PowerUpState.setPowerUpState("shield", false);
+            Shield.SetActive(false);
             return;
         }
-        if(this._health == 0)
+        if(_health == 0)
         {
+            // TODO: Destroy player explosion prefab when animation ends
             DeathAnimation();
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 

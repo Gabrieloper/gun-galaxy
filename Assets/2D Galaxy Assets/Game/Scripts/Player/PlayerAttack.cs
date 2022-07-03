@@ -9,11 +9,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] GameObject _tripleShotPrefab;
     private float _canFire = 0.0f;
     private float _fireRate = 0.25f;
-    [SerializeField] PowerUpState powerUpState;
+    [SerializeField] PowerUpState PowerUpState;
 
     private void Awake() 
     {
-        this.powerUpState = GetComponent<PowerUpState>();
+        PowerUpState = GetComponent<PowerUpState>();
     }
 
 
@@ -44,7 +44,7 @@ public class PlayerAttack : MonoBehaviour
         if (hasFired() && Time.time > _canFire)
         {
 
-            if(this.powerUpState.getPowerUpState("tripleShot"))
+            if(PowerUpState.getPowerUpState("tripleShot"))
             {
                 SpawnTripleShot();
             } else {
