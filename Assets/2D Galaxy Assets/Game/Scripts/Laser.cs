@@ -8,12 +8,6 @@ public class Laser : MonoBehaviour
     [SerializeField]
     private float _speed = 10.0f;
 
-    void Start()
-    {
-
-    }
-
-
     void Update()
     {
         transform.Translate(Vector3.up * _speed * Time.deltaTime);
@@ -25,10 +19,12 @@ public class Laser : MonoBehaviour
     }
 
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        if(collider.tag == "Enemy") {
-            Enemy enemy = collider.GetComponent<Enemy>();
-            enemy.TakeDamage();
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if(collider.tag == "Enemy")
+         {
+            Enemy Enemy = collider.GetComponent<Enemy>();
+            Enemy.TakeDamage();
             Destroy(this.gameObject);
         }
     }

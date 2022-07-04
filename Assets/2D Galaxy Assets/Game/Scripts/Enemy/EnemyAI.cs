@@ -7,11 +7,6 @@ public class EnemyAI : MonoBehaviour
     private float _speed = 5.0f;
     private float _endPosition = 8.08f;
 
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         transform.Translate(Vector2.down * _speed * Time.deltaTime);
