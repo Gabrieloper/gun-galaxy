@@ -15,11 +15,18 @@ public class Player : MonoBehaviour
     [SerializeField]
     internal PlayerMovement PlayerMovement;
     [SerializeField]
-    private int _health = 1;
+    private int _health = 3;
+    private UIManager UIManager;
+
 
     void Start()
     {
        transform.position = new Vector3(0, 0, 0);
+    }
+
+    private void Awake() 
+    {
+        UIManager = GameObject.FindWithTag("Canvas").GetComponent<UIManager>();
     }
 
     void Update()
@@ -39,6 +46,7 @@ public class Player : MonoBehaviour
         if(!PowerUpState.getPowerUpState("shield"))
         {
             _health -= damage;
+            UIManager.UpdateLives(_health);
         } else
         {
             PowerUpState.setPowerUpState("shield", false);

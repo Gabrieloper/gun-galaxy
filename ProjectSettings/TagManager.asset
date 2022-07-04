@@ -7,6 +7,8 @@ TagManager:
   - Triple
   - Enemy
   - Shield
+  - Speed
+  - Canvas
   layers:
   - Default
   - TransparentFX
