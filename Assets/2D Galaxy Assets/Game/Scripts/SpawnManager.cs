@@ -9,27 +9,26 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject[] Powerups;
 
-    private float spawnTimer = 5.0f;
-    private float deltaTime = 0.0f;
+    private void Start() {
+        StartCoroutine(EnemySpawnRoutine());
+        StartCoroutine(PowerupSpawnRoutine());
+    }
 
-    //TODO: Avoid spawning new enemies in the same horizontal position as old enemies
-    void Update()
+    private IEnumerator EnemySpawnRoutine()
     {
-        deltaTime += Time.deltaTime;
-        if(deltaTime >= spawnTimer)
+        while(true)
         {
-            SpawnEnemy();
+            Instantiate(Enemy, new Vector2(Random.Range(-8f, 8f), 7), Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
     }
 
-    private void SpawnEnemy()
+    private IEnumerator PowerupSpawnRoutine()
     {
-        Instantiate(Enemy, new Vector2(Random.Range(-8-0f, 8.0f), 6.8f), Quaternion.identity);
-        deltaTime = 0;
-    }
-
-    private void SetSpawnTimer()
-    {
-        spawnTimer = Random.Range(2.0f, 5.0f);
+        while(true) {
+            int powerup = Random.Range(0, 3);
+            Instantiate(Powerups[powerup], new Vector2(Random.Range(-8f, 8f), 7), Quaternion.identity);
+            yield return new WaitForSeconds(10f);
+        }
     }
 }
